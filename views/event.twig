@@ -1,0 +1,72 @@
+{% extends 'parent.twig' %}
+
+{% block content %}
+
+    <!-- Header Section -->
+    <div class="container mt-3">
+        <h2>Event Detail</h2>
+    </div>
+
+    <!-- Event Detail Section -->
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ event.title }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+                <p class="card-text">Typ podujatia: {{ event.type }}</p>
+                <p class="card-text">Dátum konania: {{ event.date }}</p>
+                <p class="card-text">Miesto konania: {{ event.location }}</p>
+                <p class="card-text">Región: {{ event.region }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="container mt-3">
+        <h3>Comments</h3>
+
+        <!-- Random Comments (for illustration) -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <p class="card-text"><strong>John Doe</strong> - {{ '2023-12-01' | date('F j, Y') }}: Great event! I enjoyed it a lot.</p>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <p class="card-text"><strong>Jane Doe</strong> - {{ '2023-12-02' | date('F j, Y') }}: The venue was fantastic.</p>
+            </div>
+        </div>
+
+        <!-- Comment Form -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Leave a Comment</h5>
+                <form>
+                    <div class="form-group">
+                        <label for="comment">Your Comment:</label>
+                        <textarea class="form-control" id="comment" rows="3" placeholder="Write your comment here"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Random Comments (for illustration) -->
+        <h3 class="mt-3">Random Comments</h3>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <p class="card-text"><strong>Anonymous</strong> - {{ '2023-12-03' | date('F j, Y') }}: Awesome experience! Can't wait for the next one.</p>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <p class="card-text"><strong>Guest123</strong> - {{ '2023-12-04' | date('F j, Y') }}: The organizers did a fantastic job. Kudos!</p>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+node_modules
+sessions/*
+public/images/post/*.jpg
+.env
+.idea
