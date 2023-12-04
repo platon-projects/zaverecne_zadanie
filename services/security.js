@@ -1,38 +1,29 @@
 import * as Db from './dbclient.js';
 import sha256 from 'crypto-js/sha256.js';
 import hex from 'crypto-js/enc-hex.js';
-
 /** Middleware pre overovanie pristupu na zaklade rol pouzivatela
  *
  * @param permittedRoles Zoznam rol, ktore maju pristup ku konkretnej akcii (route)
  * @returns {(function(*, *, *): void)|*}
  */
-function authorize(...permittedRoles) {
+function authorize(isAdmin) {
     return (req, res, next) => {
         const user = req.session.user;
 
         if (user) {
-            // Prejdem vsetky roly, ktore maju povoleny pristup a zistujem, ci ich ma pouzivatel pridelene
-            // ak ma pridelenu aspon jednu rolu, tak je pristup povoleny
-            let accessGranted = permittedRoles.some((permittedRole) => {
-                return user.roles.includes(permittedRole);
-            });
+        
 
-            if (accessGranted) {
-                // pouzivatel ma pozadovanu rolu, spracovanie poziadavky moze teda pokracovat
+            if (isAdmin) {
                 next();
             } else {
-                let rolesString = permittedRoles.join(', ');
-                req.flash('error', `Pre prístup je vyžadovaná rola ${rolesString}!`);
-                res.redirect('/'); // navrat na uvodnu stranku
+                res.redirect('/'); 
             }
         } else {
-            let rolesString = permittedRoles.join(', ');
-            req.flash('error', 'Prístup len pre prihlásených používateľov!');
-            res.redirect('/'); // navrat na uvodnu stranku
+            res.redirect('/'); 
         }
     }
 }
+
 
 /**
  * Vypocitat hash zadaneho hesla.
@@ -61,7 +52,6 @@ async function setUserPassword(username, password) {
 }
 
 /**
- * Overenie prihlasovacich udajov pouzivatela a nacitanie dalsich detailov z DB.
  * @param username
  * @param password
  * @returns {Promise<User>}

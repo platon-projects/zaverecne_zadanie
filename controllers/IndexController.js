@@ -7,8 +7,12 @@ import * as Events from '../services/Events.js';
  */
 router.get("/", async function (req, res) {
     const allEvents = await Events.allEvents();
+    // console.log(allEvents);
+    // let isAdmin = authorize(req.session.user.isAdmin)
+    console.log(req.session.user);
     res.render('index.twig', {
-        events: allEvents
+        events: allEvents,
+        isAdmin: req.session.user.isAdmin
     });
 });
 

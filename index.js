@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 import {IndexController} from "./controllers/IndexController.js";
 import {UserController} from "./controllers/UserController.js";
-// import {PostController} from "./controllers/PostController.js";
+import {EventController} from "./controllers/EventController.js";
 
 // require('dotenv').config();
 dotenv.config();
@@ -43,6 +43,6 @@ app.use(cookieParser());
 
 app.use('/', IndexController);
 app.use('/user', UserController);
-// app.use("/post", PostController);
+app.use('/event', EventController);
 
 let server = app.listen(3001, () => console.log(`Server počúva na adrese http://localhost:${server.address().port}`));

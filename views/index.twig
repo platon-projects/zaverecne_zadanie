@@ -17,40 +17,76 @@
     </div>
 
 <div class="container mt-3">
+{% if isAdmin %}
+{#            <!-- Admin Form for Creating New Event -->#}
+           <form class="card" action="/create-event" method="post">
+               <div class="card-body">
+                   <div class="form-group">
+                       <label for="newTitle">Title:</label>
+                       <input type="text" class="form-control" id="newTitle" name="newTitle">
+                   </div>
+                   <div class="form-group">
+                       <label for="newDescription">Description:</label>
+                       <textarea class="form-control" id="newDescription" name="newDescription" rows="3"></textarea>
+                   </div>
+                   <div class="form-group">
+                       <label for="newType">Type:</label>
+                       <input type="text" class="form-control" id="newType" name="newType">
+                   </div>
+                   <div class="form-group">
+                       <label for="newDate">Date:</label>
+                       <input type="text" class="form-control" id="newDate" name="newDate">
+                   </div>
+                   <div class="form-group">
+                       <label for="newLocation">Location:</label>
+                       <input type="text" class="form-control" id="newLocation" name="newLocation">
+                   </div>
+                   <div class="form-group">
+                       <label for="newRegion">Region:</label>
+                       <input type="text" class="form-control" id="newRegion" name="newRegion">
+                   </div>
+                   <button type="submit" class="btn btn-success">Create Event</button>
+               </div>
+           </form>
+       {% endif %}
     <div class="row">
         {% for event in events %}
-{#            {% if isAdmin %}#}
-{#                <!-- Admin Form for Editing Event -->#}
-{#                <form class="card" action="/update-event" method="post">#}
-{#                    <div class="card-body">#}
-{#                        <div class="form-group">#}
-{#                            <label for="title">Title:</label>#}
-{#                            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label for="description">Description:</label>#}
-{#                            <textarea class="form-control" id="description" name="description" rows="3">{{ event.description }}</textarea>#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label for="type">Type:</label>#}
-{#                            <input type="text" class="form-control" id="type" name="type" value="{{ event.type }}">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label for="date">Date:</label>#}
-{#                            <input type="text" class="form-control" id="date" name="date" value="{{ event.date }}">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label for="location">Location:</label>#}
-{#                            <input type="text" class="form-control" id="location" name="location" value="{{ event.location }}">#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label for="region">Region:</label>#}
-{#                            <input type="text" class="form-control" id="region" name="region" value="{{ event.region }}">#}
-{#                        </div>#}
-{#                        <button type="submit" class="btn btn-primary">Save Changes</button>#}
-{#                    </div>#}
-{#                </form>#}
-{#            {% else %}#}
+           {% if isAdmin %}
+<!-- Admin Form for Editing Event -->
+<form class="card" action="/update-event" method="post">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ event.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <input type="text" class="form-control" id="type" name="type" value="{{ event.type }}">
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="text" class="form-control" id="date" name="date" value="{{ event.date }}">
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ event.place }}">
+        </div>
+        <div class="form-group">
+            <label for="region">Region:</label>
+            <input type="text" class="form-control" id="region" name="region" value="{{ event.region }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        
+        <a class="btn btn-sm btn-danger" href="/event/delete/{{ event.event_id }}"><button type="button" class="btn btn-danger">Delete</button></a>
+
+    </div>
+</form>
+{% else %}
+
                 <!-- Default Card View for Non-Admin Users -->
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card">
@@ -64,41 +100,10 @@
                     </div>
                 </div>
             </div>
-{#            {% endif %}#}
+           {% endif %}
         {% endfor %}
 
-{#        {% if isAdmin %}#}
-{#            <!-- Admin Form for Creating New Event -->#}
-{#            <form class="card" action="/create-event" method="post">#}
-{#                <div class="card-body">#}
-{#                    <div class="form-group">#}
-{#                        <label for="newTitle">Title:</label>#}
-{#                        <input type="text" class="form-control" id="newTitle" name="newTitle">#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="newDescription">Description:</label>#}
-{#                        <textarea class="form-control" id="newDescription" name="newDescription" rows="3"></textarea>#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="newType">Type:</label>#}
-{#                        <input type="text" class="form-control" id="newType" name="newType">#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="newDate">Date:</label>#}
-{#                        <input type="text" class="form-control" id="newDate" name="newDate">#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="newLocation">Location:</label>#}
-{#                        <input type="text" class="form-control" id="newLocation" name="newLocation">#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label for="newRegion">Region:</label>#}
-{#                        <input type="text" class="form-control" id="newRegion" name="newRegion">#}
-{#                    </div>#}
-{#                    <button type="submit" class="btn btn-success">Create Event</button>#}
-{#                </div>#}
-{#            </form>#}
-{#        {% endif %}#}
+       
     </div>
 </div>
 {% endblock %}
